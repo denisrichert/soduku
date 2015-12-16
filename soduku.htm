@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>Soduku</title>
+        <script>
+        function init(){
+            var table  = document.getElementById("sodukuTable");
+            var row;
+            var string = "";
+            for(var i=0;i<3;i+=1){
+                string += '<tr id="'+i+'">';
+                for(var j=0;j<10;j+=1){
+                    string += '<td align="center" id="'+i+'-'+j+'">?</td>';
+                }
+                string+="</tr>";
+            }
+            table.innerHTML = string;
+
+            document.getElementById("1-0").innerHTML="3";
+            document.getElementById("0-7").innerHTML="7";
+            document.getElementById("2-3").innerHTML="4";
+
+        }
+        </script>
+      
+        <style type="text/css">
+            #sodukuTable {
+                border: 2px solid #A0A0A0;
+                background: white;
+                display: block;
+            }
+            td {
+                border: 1px solid #CCCCCC;
+            }
+        </style>
+        
+    </head>
+    <body onload="init();">
+    <table id="sodukuTable">
+    </table>
+
+</body>
+</html>
