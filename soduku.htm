@@ -6,18 +6,47 @@
             var table  = document.getElementById("sodukuTable");
             var row;
             var string = "";
-            for(var i=0;i<3;i+=1){
+            for(var i=1;i<4;i+=1){
                 string += '<tr id="'+i+'">';
-                for(var j=0;j<10;j+=1){
-                    string += '<td align="center" id="'+i+'-'+j+'">?</td>';
+                for(var j=1;j<10;j+=1){
+                    string += '<td id="'+i+'-'+j+'">?</td>';
                 }
                 string+="</tr>";
             }
             table.innerHTML = string;
 
-            document.getElementById("1-0").innerHTML="3";
-            document.getElementById("0-7").innerHTML="7";
-            document.getElementById("2-3").innerHTML="4";
+            function createRandomSodukuArray(){
+                var sodukuArray = [];
+                for(var i=1;i<4;i+=1){
+                    var x  =[];
+                    for(var j=1;j<10;j+=1){
+                        var num = Math.round(Math.random()*9+1);
+                        num = (num>9)?9:num;
+                        x.push(num);
+                    }
+                    sodukuArray.push(x);
+                }
+                //console.log(sodukuArray);
+                return sodukuArray;
+            }
+
+            function fillInArrayIntoTable(a) {
+                for(var i=0,c=a.length;i<c;i+=1){
+                    for(var j=0,d=a[i].length;j<d;j+=1){
+                        var index = (i+1)+'-'+(j+1);
+                        //console.log(index);
+                        document.getElementById(index).innerHTML=a[i][j];
+                    }
+                }
+            }
+
+            var sa = createRandomSodukuArray();//call random array
+            fillInArrayIntoTable(sa);
+
+            /*
+            document.getElementById("1-1").innerHTML="3";
+            document.getElementById("1-7").innerHTML="9";
+            document.getElementById("2-3").innerHTML="4";*/
 
         }
         </script>
