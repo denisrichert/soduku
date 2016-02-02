@@ -14,15 +14,21 @@
                 string+="</tr>";
             }
             table.innerHTML = string;
+            document.getElementById("sodukuTable").innerHTML = string;
 
             function createRandomSodukuArray(){
                 var sodukuArray = [];
                 for(var i=1;i<4;i+=1){
                     var x  =[];
                     for(var j=1;j<10;j+=1){
-                        var num = Math.round(Math.random()*9+1);
-                        num = (num>9)?9:num;
-                        x.push(num);
+                        var position = j+(i-1)*9;
+                       
+                      if(position%4==0){
+                        x.push(j);
+                      } else {
+                        x.push("*");
+                      } 
+                        
                     }
                     sodukuArray.push(x);
                 }
@@ -34,21 +40,67 @@
                 for(var i=0,c=a.length;i<c;i+=1){
                     for(var j=0,d=a[i].length;j<d;j+=1){
                         var index = (i+1)+'-'+(j+1);
-                        //console.log(index);
+                        console.log(index);
                         document.getElementById(index).innerHTML=a[i][j];
                     }
                 }
             }
 
-            var sa = createRandomSodukuArray();//call random array
-            fillInArrayIntoTable(sa);
+            function checkRow(num,row) {
+                for(var i=0;i<9;i+=1) {
+                    if(row[i]==num){
+                        return false;
+                    }
+                }
+                return true;
+            }
+            function checkCollum(num,data,index) {
+               for(var i=0;i<3;i+=1) {
+                    if(data[i][index]==num){
+                        return false;
+                    }
+                }
+                return true; 
+            }
+            function checkQuadrant(num,data,index) {
+                for(var i=0;i<3;i+=1) {
+                    for(var j=index*3,c=index*3+3;j<c;j+=1) {
+                        if(data[i][j]==num){
+                            return false;
+                        }
+                    }
+                    
+                    
+                }
+                return true; 
 
+            }
+            //i sind reihen
+            //j sind spalten
+            //num die zahl die wir einführen wollen
+            //sa die daten die wir haben
+            function numberAllowed(num,i,j,data){
+                return checkRow(num,data[i]) && checkCollum(num,data,j) && checkQuadrant(num,data,Math.floor(j/3));
+            }
+
+            var sa = createRandomSodukuArray();//call random array
+            fillInArrayIntoTable(sa); 
+            console.log(checkRow(3,sa[1]));
+            console.log(checkCollum(3,sa,5));
+            console.log(checkQuadrant(7,sa,2));
+
+            console.log("is the number allowed?",numberAllowed(3,1,7,sa))
             /*
             document.getElementById("1-1").innerHTML="3";
             document.getElementById("1-7").innerHTML="9";
             document.getElementById("2-3").innerHTML="4";*/
-
+ var obst = ["banane","apfel","baum","garten","kirsche"];
+ console.log(obst);
+ console.log(obst[2])
+ var so = [[1,2,3,4,5,6,7,8],[9,0,10,11,12,13,14,15]];
+ console.log(so[1][2])
         }
+
         </script>
       
         <style type="text/css">
